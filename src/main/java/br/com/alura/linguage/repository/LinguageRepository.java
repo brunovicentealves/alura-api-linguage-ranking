@@ -13,5 +13,9 @@ public interface LinguageRepository extends MongoRepository<Linguage, String> {
 	
 	
 	List<Linguage> findByTitle(String title);
+	
+	
+	
+	List<Linguage> findByOrderByNumberVotesDesc();
 
 }

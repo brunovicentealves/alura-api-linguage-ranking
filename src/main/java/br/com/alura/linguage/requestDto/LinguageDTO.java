@@ -14,9 +14,11 @@ import lombok.Setter;
 @Builder
 public class LinguageDTO {
 	
+	private String id;
 	private String title;
 	private String image;
 	private Integer ranking;
+	private Integer numberVotes;
 	
 	
 	
@@ -25,15 +27,17 @@ public class LinguageDTO {
 	
 public Linguage  convertEntity(LinguageDTO dto) {
 		
-		return Linguage.builder().title(dto.getTitle()).image(dto.getImage()).ranking(dto.getRanking()).build();
+		return Linguage.builder().id(dto.getId()).title(dto.getTitle()).image(dto.getImage()).ranking(dto.getRanking()).build();
 		
 	}
 
 
-public Linguage  convertEntity(LinguageDTO dto ,String id) {
-	
-	return Linguage.builder().id(id).title(dto.getTitle()).image(dto.getImage()).ranking(dto.getRanking()).build();
-	
+public LinguageDTO(String id, String title, String image, Integer ranking) {
+	super();
+	this.id = id;
+	this.title = title;
+	this.image = image;
+	this.ranking = ranking;
 }
 
 }

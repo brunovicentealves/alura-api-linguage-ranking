@@ -28,11 +28,12 @@ public class Linguage {
 	private String title;
 	private String image;
 	private Integer ranking;
+	private Integer numberVotes;
 
 	
 	public List<LinguageDTO>  convertEntityListLinguageDto(List<Linguage> linguage) {
 		
-		return linguage.stream().map(x -> new LinguageDTO(x.getTitle(),x.getImage(), x.getRanking())).collect(Collectors.toList());
+		return linguage.stream().map(x -> new LinguageDTO(x.getId(),x.getTitle(),x.getImage(), x.getRanking(),x.getNumberVotes())).collect(Collectors.toList());
 		
 	}
 	

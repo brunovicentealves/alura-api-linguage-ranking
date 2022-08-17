@@ -42,14 +42,34 @@ public class linguageService {
 	
 	public List<LinguageDTO> findAllLinguage(){
 		
-		return new Linguage().convertEntityListLinguageDto(repository.findAll());
+		return new Linguage().convertEntityListLinguageDto(repository.findByOrderByNumberVotesDesc());
+	}
+	
+	public void voteLinguagem(String title) {
+		
+		List<Linguage>	list = repository.findByTitle(title);
+		
+		if(list.isEmpty()) {
+			throw new RuntimeException("Não achou a Linguagem!");
+		}
+		
+		
+		for (Linguage linguage : list) {
+			
+			linguage.setNumberVotes(linguage.getNumberVotes()+1);
+			
+			repository.save(linguage);
+			
+		}
+		
+		
+		
 	}
 	
 	
-	public void updateLinguage(LinguageDTO dto ,String id) {
+	public void updateLinguage(LinguageDTO dto ) {
 		
-		
-	Optional<Linguage> linguage = repository.findById(id);
+	Optional<Linguage> linguage = repository.findById(dto.getId());
 	
 	repository.save(Linguage.builder().id(linguage.get().getId()).title(dto.getTitle()).image(dto.getImage()).ranking(dto.getRanking()).build());
 			
@@ -60,7 +80,7 @@ public class linguageService {
 		
 		LinguageDTO dto =getLinguage(id);
 		
-		repository.delete(new LinguageDTO().convertEntity(dto, id));
+		repository.delete(new LinguageDTO().convertEntity(dto));
 		
 	}
 	
